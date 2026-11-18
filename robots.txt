@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dsalladino.github.io/mega-servicos-mockup/sitemap.xml

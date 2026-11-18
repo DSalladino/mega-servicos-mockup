@@ -13,6 +13,12 @@ Mockup navegável de uma proposta de redesign para [megaservicos.com.br](https:/
 
 Os números do painel e o SLA são ilustrativos; copy e métricas precisam de validação comercial.
 
+## Revisão de qualidade aplicada
+- Acessibilidade: skip link, abas com `role="tab"`/`aria-controls` e navegação por setas/Home/End, menu mobile com Esc, contrastes corrigidos, fieldset no escopo do formulário, foco visível.
+- Performance: fotos convertidas para WebP em 400/800px com `srcset`, dimensões declaradas, fontes com `display=swap`.
+- SEO/compartilhamento: meta description, canonical, Open Graph/Twitter, JSON-LD de Organization, robots.txt, sitemap.xml e página 404.
+- Conversão: CTA do segmento pré-seleciona o segmento no formulário; envio com estado de sucesso.
+
 ## Screenshots
 ![Desktop](preview-desktop.png)
 
