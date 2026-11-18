@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mega Serviços — Obras, Manutenção e Facilities integrados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#08181F;
+    --ink-2:#0D2A31;
+    --teal:#12B3A2;
+    --teal-600:#0E9184;
+    --teal-050:#E7F6F3;
+    --paper:#F7F8F6;
+    --white:#FFFFFF;
+    --text:#0F2A31;
+    --muted:#5C757C;
+    --line:#DFE5E3;
+    --line-soft:#EDF1EF;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --display:'Archivo','Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --r:10px;
+    --r-lg:18px;
+    --shadow:0 1px 2px rgba(8,24,31,.04), 0 12px 32px -12px rgba(8,24,31,.18);
+    --max:1180px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  section[id],div[id]{scroll-margin-top:96px}
+  :focus-visible{outline:2px solid var(--teal-600);outline-offset:3px;border-radius:4px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  body{
+    margin:0;font-family:var(--sans);color:var(--text);background:var(--white);
+    -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ::selection{background:var(--teal);color:#04191d}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--teal-600);display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:currentColor;display:block}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.022em;line-height:1.08;margin:0}
+  h1{font-size:clamp(38px,4.9vw,62px);font-weight:700;text-wrap:balance}
+  h2{font-size:clamp(28px,3.1vw,42px);text-wrap:balance}
+  h3{font-size:19px;letter-spacing:-.01em;line-height:1.3}
+  p{margin:0}
+  .lead{font-size:clamp(16px,1.35vw,18.5px);color:var(--muted);line-height:1.65;max-width:56ch}
+  .teal{color:var(--teal-600)}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    height:50px;padding:0 22px;border-radius:8px;font-weight:600;font-size:14.5px;
+    letter-spacing:.005em;transition:transform .18s ease, background .18s ease, box-shadow .18s ease, color .18s;
+    white-space:nowrap;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--teal);color:#03191C;box-shadow:0 8px 20px -10px rgba(18,179,162,.9)}
+  .btn-primary:hover{background:#19C7B4}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:#fff}
+  .btn-ghost:hover{border-color:#BFCBC7;background:#FBCCFB00;background:var(--paper)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#0E2A33}
+  .btn svg{flex:none}
+  .link-arrow{
+    display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink);
+    border-bottom:1px solid transparent;padding-bottom:2px;transition:.18s;
+  }
+  .link-arrow:hover{color:var(--teal-600);border-color:var(--teal-600)}
+  .link-arrow svg{transition:transform .18s}
+  .link-arrow:hover svg{transform:translateX(3px)}
+
+  /* ---------- top bar + header ---------- */
+  .topbar{background:var(--ink);color:#9FB6BB;font-size:12.5px}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:20px}
+  .topbar b{color:#fff;font-weight:500}
+  .topbar a:hover{color:var(--teal)}
+  .topbar-l,.topbar-r{display:flex;align-items:center;gap:22px}
+  .pulse{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;margin-right:7px;
+    box-shadow:0 0 0 0 rgba(18,179,162,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 7px rgba(18,179,162,0)}100%{box-shadow:0 0 0 0 rgba(18,179,162,0)}}
+
+  header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line-soft)}
+  header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:24px}
+  .brand img{height:50px;width:auto}
+  nav.main{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:500}
+  nav.main a{color:#28454C;position:relative;padding:6px 0}
+  nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--teal);transition:right .22s}
+  nav.main a:hover{color:var(--ink)}
+  nav.main a:hover::after,nav.main a.is-active::after{right:0}
+  .hdr-cta{display:flex;align-items:center;gap:14px}
+  .hdr-phone{display:flex;flex-direction:column;line-height:1.2;text-align:right}
+  .hdr-phone span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+  .hdr-phone b{font-size:14px;letter-spacing:-.01em}
+  .burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:8px;align-items:center;justify-content:center}
+  .mnav{display:none;border-top:1px solid var(--line-soft);background:#fff;padding:12px 20px 20px}
+  .mnav a{display:block;padding:12px 2px;font-size:15px;font-weight:500;border-bottom:1px solid var(--line-soft)}
+  .mnav a:last-of-type{border-bottom:0}
+  .mnav-foot{display:flex;flex-direction:column;gap:12px;align-items:flex-start;padding-top:14px}
+  .mnav.is-open{display:block}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:
+      radial-gradient(900px 420px at 12% -10%, #EAF7F4 0%, rgba(234,247,244,0) 62%),
+      linear-gradient(#fff,#FBFCFB);}
+  .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(70% 60% at 30% 20%,#000 0%,transparent 75%);
+  }
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+    padding-top:64px;padding-bottom:64px}
+  .hero h1{margin-bottom:22px}
+  .hero h1 em{font-style:normal;color:var(--teal-600)}
+  .hero .lead{margin-bottom:30px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:26px}
+  .hero-note{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .hero-note span{display:flex;align-items:center;gap:7px}
+  .check{width:15px;height:15px;border-radius:50%;background:var(--teal-050);color:var(--teal-600);
+    display:inline-flex;align-items:center;justify-content:center;flex:none}
+
+  .hero-visual{position:relative}
+  .hero-shot{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background:#0B2930}
+  .hero-shot img{width:100%;height:440px;object-fit:cover;filter:saturate(.92) contrast(1.04)}
+  .hero-shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,24,31,0) 35%,rgba(8,24,31,.72) 100%)}
+  .shot-label{position:absolute;left:20px;right:216px;bottom:16px;z-index:2;color:#fff;display:flex;align-items:center;gap:10px;font-size:12.5px;line-height:1.35}
+  .shot-label .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  .float-card{
+    position:absolute;z-index:3;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px -18px rgba(8,24,31,.35);
+  }
+  .fc-sla{top:22px;left:-30px;padding:14px 16px;min-width:196px}
+  .fc-sla .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .fc-sla .v{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+  .fc-sla .bar{height:5px;border-radius:3px;background:var(--line-soft);margin-top:8px;overflow:hidden}
+  .fc-sla .bar i{display:block;height:100%;width:97%;background:linear-gradient(90deg,var(--teal-600),var(--teal));border-radius:3px}
+  .fc-sla .sub{font-size:11px;color:var(--muted);margin-top:7px}
+  .fc-live{bottom:-26px;right:18px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+  .fc-live .mini{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+  .fc-live b{font-size:13px;display:block;letter-spacing:-.01em}
+
+  /* ---------- clients ---------- */
+  .clients{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:#fff}
+  .clients .wrap{display:flex;align-items:center;gap:36px;padding-top:26px;padding-bottom:26px;flex-wrap:wrap}
+  .clients .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex:none}
+  .clients ul{display:flex;list-style:none;margin:0;padding:0;gap:34px;flex-wrap:wrap;align-items:center}
+  .clients li{font-family:var(--display);font-weight:600;font-size:16px;color:#8A9C9F;letter-spacing:-.01em;
+    transition:color .2s;white-space:nowrap}
+  .clients li:hover{color:var(--ink)}
+  .clients li small{display:block;font-family:var(--sans);font-weight:400;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#A9B7B9}
+
+  /* ---------- generic section ---------- */
+  section.block{padding:96px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:44px;flex-wrap:wrap}
+  .sec-head .lead{margin-top:16px}
+
+  /* ---------- segment switcher ---------- */
+  .segments{background:var(--paper)}
+  .seg-grid{display:grid;grid-template-columns:300px 1fr;gap:0;border:1px solid var(--line);
+    border-radius:var(--r-lg);overflow:hidden;background:#fff}
+  .seg-tabs{display:flex;flex-direction:column;border-right:1px solid var(--line);background:#fff}
+  .seg-tab{
+    text-align:left;padding:22px 22px;border-bottom:1px solid var(--line-soft);display:flex;align-items:flex-start;
+    gap:14px;transition:.2s;position:relative;flex:1;
+  }
+  .seg-tab:last-child{border-bottom:0}
+  .seg-tab .n{font-family:var(--mono);font-size:11px;color:#A7B5B7;padding-top:2px}
+  .seg-tab .t{font-family:var(--display);font-weight:600;font-size:15.5px;display:block}
+  .seg-tab .d{font-size:12.5px;color:var(--muted);display:block;margin-top:3px}
+  .seg-tab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);transform:scaleY(0);transition:transform .25s;transform-origin:top}
+  .seg-tab:hover{background:#FCFDFC}
+  .seg-tab.is-on{background:var(--teal-050)}
+  .seg-tab.is-on::before{transform:scaleY(1)}
+  .seg-tab.is-on .n{color:var(--teal-600)}
+  .seg-panel{display:grid;grid-template-columns:1fr .85fr;min-height:430px}
+  .seg-body{padding:38px 38px 34px;display:flex;flex-direction:column}
+  .seg-body h3{font-size:26px;margin:0 0 14px;max-width:22ch;text-wrap:balance}
+  .seg-body p{color:var(--muted);font-size:15px;max-width:44ch}
+  .seg-list{list-style:none;padding:0;margin:22px 0 26px;display:grid;gap:10px}
+  .seg-list li{display:flex;gap:10px;font-size:14px;align-items:flex-start;color:#20404A}
+  .seg-list svg{margin-top:3px;color:var(--teal-600);flex:none}
+  .seg-foot{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .seg-media{position:relative;background:#0B2930;min-height:280px}
+  .seg-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  .seg-media img.is-on{opacity:1}
+  .seg-media .tag{position:absolute;left:16px;top:16px;z-index:2;background:rgba(8,24,31,.72);color:#fff;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:5px;backdrop-filter:blur(4px)}
+  .seg-media .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,24,31,0) 45%,rgba(8,24,31,.55) 100%);z-index:1}
+  .seg-media .foot{position:absolute;left:16px;right:16px;bottom:14px;z-index:2;color:#EAF3F1;font-size:12px;display:flex;justify-content:space-between;gap:10px}
+
+  /* ---------- services ---------- */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px 28px;background:#fff;
+    display:flex;flex-direction:column;transition:.22s;position:relative;overflow:hidden}
+  .svc:hover{border-color:#C3D2CE;box-shadow:var(--shadow);transform:translateY(-3px)}
+  .svc .n{font-family:var(--mono);font-size:11px;color:var(--teal-600);letter-spacing:.1em;margin-bottom:26px}
+  .svc h3{font-size:22px;margin-bottom:12px}
+  .svc p{font-size:14px;color:var(--muted);margin-bottom:20px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+  .chip{font-size:12px;color:#2C4A52;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .svc .link-arrow{margin-top:auto;font-size:13.5px}
+
+  /* ---------- stats band ---------- */
+  .band{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:56px 56px;mask-image:radial-gradient(60% 100% at 70% 0%,#000,transparent 70%)}
+  .band .wrap{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-top:52px;padding-bottom:52px}
+  .stat{border-left:1px solid rgba(255,255,255,.14);padding-left:22px}
+  .stat:first-child{border-left:0;padding-left:0}
+  .stat .v{font-family:var(--display);font-size:clamp(30px,3.4vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1}
+  .stat .v span{color:var(--teal)}
+  .stat .k{font-size:12.5px;color:#9DB3B8;margin-top:10px;max-width:20ch;line-height:1.45}
+
+  /* ---------- tech / dashboard ---------- */
+  .tech{background:linear-gradient(180deg,#071A20,#0A222A);color:#fff;overflow:hidden}
+  .tech .wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:64px;align-items:center;padding-top:92px;padding-bottom:92px}
+  .tech h2{color:#fff;margin-bottom:18px}
+  .tech .lead{color:#A6BDC1;margin-bottom:26px}
+  .tech ul{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+  .tech li{display:flex;gap:13px;font-size:14.5px;color:#D7E4E4;align-items:flex-start}
+  .tech li b{color:#fff;font-weight:600;display:block;margin-bottom:2px}
+  .tech li span{color:#96AEB3;font-size:13.5px}
+  .tech-ico{width:34px;height:34px;border-radius:9px;background:rgba(18,179,162,.14);border:1px solid rgba(18,179,162,.3);
+    display:flex;align-items:center;justify-content:center;color:var(--teal);flex:none;margin-top:1px}
+
+  .dash{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;
+    box-shadow:0 30px 70px -40px rgba(0,0,0,.8);backdrop-filter:blur(6px)}
+  .dash-top{display:flex;justify-content:space-between;align-items:center;padding:2px 4px 14px}
+  .dash-top .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#8FA9AE}
+  .dash-top .live{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--teal);
+    border:1px solid rgba(18,179,162,.35);background:rgba(18,179,162,.1);padding:4px 9px;border-radius:999px}
+  .dash-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+  .card{background:#0A2027;border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:14px}
+  .card .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#7F999E}
+  .card .big{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;margin-top:6px}
+  .card .big small{font-size:12px;color:#9FB6BA;font-weight:500;letter-spacing:0}
+  .spark{margin-top:8px;height:66px;width:100%}
+  .dash-kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .kpi{background:#0A2027;border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:12px 14px}
+  .kpi .lbl{font-size:9.5px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#7F999E}
+  .kpi .v{font-family:var(--display);font-size:19px;font-weight:600;margin-top:5px;letter-spacing:-.02em}
+  .kpi .v i{font-style:normal;font-size:11px;color:var(--teal);margin-left:5px}
+  .os-list{grid-column:1/-1}
+  .os-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid rgba(255,255,255,.07);font-size:12px}
+  .os-row:first-of-type{border-top:0}
+  .os-row .id{font-family:var(--mono);font-size:10.5px;color:#7F999E;width:56px;flex:none}
+  .os-row .nm{flex:1;color:#D3E1E2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pill{font-size:9.5px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:4px;flex:none}
+  .pill.ok{background:rgba(18,179,162,.14);color:#5FE0CF}
+  .pill.warn{background:rgba(240,180,90,.14);color:#F0C489}
+  .pill.run{background:rgba(140,170,255,.14);color:#A9C0FF}
+
+  /* ---------- cases ---------- */
+  .cases{background:var(--paper)}
+  .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .case{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:.22s}
+  .case:hover{box-shadow:var(--shadow);transform:translateY(-3px);border-color:#C8D5D1}
+  .case .ph{position:relative;height:196px;overflow:hidden;background:#0B2930}
+  .case .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .case:hover .ph img{transform:scale(1.04)}
+  .case .tag{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--ink);
+    font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:5px 9px;border-radius:4px}
+  .case .bd{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+  .case h3{font-size:16.5px;margin-bottom:8px}
+  .case p{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+  .case .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:#8FA0A2;
+    border-top:1px solid var(--line-soft);padding-top:13px;margin-top:auto;display:flex;justify-content:space-between;gap:8px}
+  .case .meta b{color:var(--teal-600);font-weight:500}
+
+  /* ---------- process ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;border-top:1px solid var(--line)}
+  .step{padding:30px 26px 8px 0;position:relative;display:flex;flex-direction:column}
+  .step::before{content:"";position:absolute;top:-1px;left:0;width:44px;height:2px;background:var(--teal)}
+  .step .n{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#9AAEB1;margin-bottom:16px}
+  .step h3{font-size:17px;margin-bottom:9px}
+  .step p{font-size:13.5px;color:var(--muted);max-width:26ch;margin-bottom:14px}
+  .step .when{display:inline-block;margin-top:auto;align-self:flex-start;font-size:11px;font-family:var(--mono);letter-spacing:.06em;
+    color:var(--teal-600);background:var(--teal-050);padding:4px 8px;border-radius:4px}
+
+  /* ---------- form ---------- */
+  .contact{background:var(--paper);border-top:1px solid var(--line)}
+  .contact .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;padding-top:92px;padding-bottom:92px;align-items:start}
+  form.lead-form{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:12px;font-weight:600;color:#2F4C54;letter-spacing:.01em}
+  .field label span{color:#B9C6C7;font-weight:400}
+  .field input,.field select{
+    height:46px;border:1px solid var(--line);border-radius:8px;padding:0 13px;font:inherit;font-size:14px;background:#fff;
+    color:var(--text);transition:border-color .16s, box-shadow .16s;width:100%;appearance:none;
+  }
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C757C' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 13px center;padding-right:36px}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(18,179,162,.14)}
+  .scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+  .scope button{font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;
+    color:#33515A;transition:.16s;display:flex;align-items:center;gap:6px}
+  .scope button:hover{border-color:#B7CBC6}
+  .scope button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .scope button[aria-pressed="true"] .plus{transform:rotate(45deg)}
+  .scope .plus{transition:transform .2s;font-size:13px;line-height:1;opacity:.75}
+  .form-foot{grid-column:1/-1;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
+  .form-note{font-size:11.5px;color:var(--muted);max-width:34ch;line-height:1.5}
+  .form-ok{grid-column:1/-1;display:none;align-items:center;gap:10px;background:var(--teal-050);border:1px solid #BFE6DF;
+    color:#0A5D55;padding:13px 15px;border-radius:9px;font-size:13.5px}
+  .form-ok.show{display:flex}
+
+  .contact-card{background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:34px 32px;position:relative;overflow:hidden}
+  .contact-card::before{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-140px;border-radius:50%;
+    background:radial-gradient(circle,rgba(18,179,162,.22),transparent 70%)}
+  .contact-card h3{font-size:19px;color:#fff;margin-bottom:6px;position:relative}
+  .contact-card .sub{font-size:13px;color:#9DB3B8;position:relative;margin-bottom:24px}
+  .cc-item{display:flex;gap:13px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);position:relative}
+  .cc-item .ico{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.16);
+    display:flex;align-items:center;justify-content:center;color:var(--teal);flex:none}
+  .cc-item .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#7F999E}
+  .cc-item .v{font-size:14px;color:#EAF2F1;margin-top:3px;line-height:1.45}
+  .cc-item a:hover{color:var(--teal)}
+  .contact-card .btn{margin-top:22px;width:100%;position:relative}
+
+  /* ---------- footer ---------- */
+  footer.site{background:#061216;color:#8FA7AB;padding:64px 0 26px;font-size:13.5px}
+  .f-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-brand .wordmark{font-family:var(--display);font-weight:700;font-size:21px;color:#fff;letter-spacing:-.02em}
+  .f-brand .wordmark span{color:var(--teal)}
+  .f-brand p{margin-top:14px;max-width:32ch;line-height:1.65;font-size:13px}
+  .f-brand .socials{display:flex;gap:8px;margin-top:20px}
+  .f-brand .socials a{width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:8px;
+    display:flex;align-items:center;justify-content:center;transition:.18s}
+  .f-brand .socials a:hover{border-color:var(--teal);color:var(--teal)}
+  .f-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6E888D;font-weight:500;margin-bottom:16px}
+  .f-col ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  .f-col a:hover{color:#fff}
+  .f-bot{display:flex;justify-content:space-between;gap:20px;padding-top:22px;font-size:12px;color:#63797E;flex-wrap:wrap}
+  .f-bot a:hover{color:#fff}
+
+  .wa{position:fixed;right:22px;bottom:22px;z-index:80;width:54px;height:54px;border-radius:50%;
+    background:#12B3A2;display:flex;align-items:center;justify-content:center;color:#04191d;
+    box-shadow:0 12px 30px -8px rgba(18,179,162,.7);transition:.2s}
+  .wa:hover{transform:translateY(-2px) scale(1.03)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1000px){
+    .hero .wrap{grid-template-columns:1fr;gap:44px;padding-top:44px}
+    .hero-shot img{height:340px}
+    .fc-sla{left:0}
+    .seg-grid{grid-template-columns:1fr}
+    .seg-tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+    .seg-tab{border-bottom:0;border-right:1px solid var(--line-soft);min-width:190px;flex:none;padding:16px}
+    .seg-tab .d{display:none}
+    .seg-tab::before{width:100%;height:3px;top:auto;bottom:0;transform:scaleX(0);transform-origin:left}
+    .seg-tab.is-on::before{transform:scaleX(1)}
+    .seg-panel{grid-template-columns:1fr}
+    .seg-media{min-height:210px;order:-1}
+    .svc-grid,.case-grid{grid-template-columns:1fr 1fr}
+    .band .wrap{grid-template-columns:1fr 1fr;gap:34px}
+    .stat:nth-child(3){border-left:0;padding-left:0}
+    .tech .wrap{grid-template-columns:1fr;gap:44px;padding-top:72px;padding-bottom:72px}
+    .steps{grid-template-columns:1fr 1fr;gap:24px 0}
+    .contact .wrap{grid-template-columns:1fr;gap:40px;padding-top:72px;padding-bottom:72px}
+    nav.main,.hdr-phone{display:none}
+    .burger{display:flex}
+    .f-top{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    body{font-size:15.5px}
+    .wrap{padding:0 20px}
+    section.block{padding:64px 0}
+    .topbar-l{font-size:11px;gap:0}
+    .topbar-l span:nth-child(n+2){display:none}
+    .topbar-r{display:none}
+    .topbar .wrap{height:34px;justify-content:center}
+    header.site .wrap{height:66px}
+    .hdr-cta .btn{display:none}
+    .brand img{height:42px}
+    .svc{padding:26px 22px 24px}
+    .svc .n{margin-bottom:18px}
+    .seg-media{min-height:190px}
+    .hero .wrap{padding-bottom:48px}
+    .hero-actions .btn{flex:1}
+    .fc-sla{position:static;margin-bottom:12px;box-shadow:none;border-radius:10px}
+    .fc-live{position:static;margin-top:12px;background:#fff}
+    .hero-shot img{height:280px}
+    .svc-grid,.case-grid{grid-template-columns:1fr}
+    .band .wrap{grid-template-columns:1fr;gap:22px;padding-top:36px;padding-bottom:36px}
+    .stat{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+    .stat:first-child{border-top:0;padding-top:0}
+    .steps{grid-template-columns:1fr}
+    .step{padding:24px 0 0}
+    .dash-grid{grid-template-columns:1fr}
+    form.lead-form{grid-template-columns:1fr}
+    .f-top{grid-template-columns:1fr;gap:32px}
+    .seg-body{padding:26px 22px 28px}
+    .sec-head{margin-bottom:30px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-l">
+      <span><span class="pulse"></span><b>Atendimento 24/7</b> para contratos ativos</span>
+      <span style="opacity:.5">|</span>
+      <span>Rio de Janeiro · RJ</span>
+    </div>
+    <div class="topbar-r">
+      <a href="mailto:comercial@megaservicos.com.br">comercial@megaservicos.com.br</a>
+      <a href="tel:+5521997721041"><b>21 99772-1041</b></a>
+    </div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Mega Serviços">
+      <img src="assets/logo.png" alt="Mega Serviços">
+    </a>
+    <nav class="main">
+      <a href="#solucoes" class="is-active">Soluções</a>
+      <a href="#segmentos">Segmentos</a>
+      <a href="#tecnologia">Tecnologia</a>
+      <a href="#cases">Cases</a>
+      <a href="#empresa">Quem somos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="hdr-cta">
+      <div class="hdr-phone">
+        <span>Comercial</span>
+        <b>21 99772-1041</b>
+      </div>
+      <a class="btn btn-primary" href="#contato">Solicitar diagnóstico
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button class="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mnav" onclick="toggleMenu(this)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mnav" id="mnav">
+    <a href="#solucoes">Soluções</a>
+    <a href="#segmentos">Segmentos</a>
+    <a href="#tecnologia">Tecnologia</a>
+    <a href="#cases">Cases</a>
+    <a href="#empresa">Quem somos</a>
+    <a href="#contato">Contato</a>
+    <div class="mnav-foot">
+      <a class="btn btn-primary" href="#contato" style="height:46px;width:100%">Solicitar diagnóstico</a>
+      <a href="tel:+5521997721041" style="font-size:13px;color:var(--muted)">21 99772-1041</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Facilities Plus · Rio de Janeiro</p>
+        <h1>Sua operação não pode parar. <em>A Mega sustenta o resto.</em></h1>
+        <p class="lead">Obras, manutenção e gestão de facilities integradas em um único contrato — com equipe própria, gestão digital em tempo real e SLA monitorado.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contato">Solicitar diagnóstico
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#solucoes">Ver soluções</a>
+        </div>
+        <div class="hero-note">
+          <span><i class="check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i> Resposta comercial em 1 dia útil</span>
+          <span><i class="check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i> Visita técnica sem custo</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-shot">
+          <img src="assets/case3.png" alt="Edifício corporativo atendido pela Mega Serviços">
+          <div class="shot-label"><span class="dot"></span><span>Centro Empresarial Mourisco</span></div>
+        </div>
+        <div class="float-card fc-sla">
+          <div class="k">SLA de atendimento</div>
+          <div class="v">98,7%</div>
+          <div class="bar"><i></i></div>
+          <div class="sub">Chamados resolvidos no prazo · 30 dias</div>
+        </div>
+        <div class="float-card fc-live">
+          <svg width="58" height="30" viewBox="0 0 58 30" fill="none" aria-hidden="true">
+            <path d="M1 24 L9 20 L16 22 L23 13 L30 16 L37 9 L44 11 L51 4 L57 6" stroke="#12B3A2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <span class="mini">Ordens de serviço · hoje</span>
+            <b>12 abertas · 0 críticas</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <div class="clients">
+    <div class="wrap">
+      <div class="lbl">Confiam na Mega</div>
+      <ul>
+        <li>Cyrela<small>Incorporadora</small></li>
+        <li>Mourisco<small>Centro empresarial</small></li>
+        <li>ASSIM<small>Hospital · Méier</small></li>
+        <li>Lead Americas<small>Business center</small></li>
+        <li>+ 250 projetos<small>Engenharia</small></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SOLUTIONS -->
+  <section class="block" id="solucoes">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Soluções</p>
+          <h2>Três frentes, um único fornecedor.</h2>
+        </div>
+        <div>
+          <p class="lead" style="max-width:44ch">Contratar separado custa mais caro: retrabalho, ruído de comunicação e responsabilidade diluída. Aqui a engenharia, a manutenção e os serviços operacionais respondem ao mesmo contrato e ao mesmo SLA.</p>
+        </div>
+      </div>
+      <div class="svc-grid">
+        <article class="svc">
+          <div class="n">01 / ENGENHARIA</div>
+          <h3>Obras</h3>
+          <p>Do estudo de viabilidade à entrega, com equipe própria e cronograma acompanhado semanalmente.</p>
+          <div class="chips">
+            <span class="chip">Construção civil</span><span class="chip">Instalações elétricas</span>
+            <span class="chip">Hidráulica</span><span class="chip">Impermeabilização</span>
+            <span class="chip">Fundações</span><span class="chip">Gerenciamento</span>
+          </div>
+          <a class="link-arrow" href="#">Conhecer Obras
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc">
+          <div class="n">02 / CONTINUIDADE</div>
+          <h3>Manutenção</h3>
+          <p>Preventiva, corretiva e preditiva — para que o chamado de emergência deixe de ser rotina.</p>
+          <div class="chips">
+            <span class="chip">Predial</span><span class="chip">Água e esgoto</span>
+            <span class="chip">Refrigeração</span><span class="chip">Elétrica</span>
+            <span class="chip">Mecânica</span><span class="chip">Incêndio</span>
+            <span class="chip">Energia solar</span>
+          </div>
+          <a class="link-arrow" href="#">Conhecer Manutenção
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        <article class="svc">
+          <div class="n">03 / OPERAÇÃO</div>
+          <h3>Facilities</h3>
+          <p>Toda a operação do espaço sob um único gestor, com custo por escopo e indicadores abertos.</p>
+          <div class="chips">
+            <span class="chip">Limpeza e conservação</span><span class="chip">Portaria e recepção</span>
+            <span class="chip">Paisagismo</span><span class="chip">Resíduos</span>
+            <span class="chip">PAME e laudos</span><span class="chip">Pay-per-use</span>
+          </div>
+          <a class="link-arrow" href="#">Conhecer Facilities
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGMENTS -->
+  <section class="block segments" id="segmentos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Segmentos</p>
+          <h2>Cada operação tem um contexto.<br>A solução também.</h2>
+        </div>
+        <p class="lead" style="max-width:38ch">Escolha o tipo de espaço e veja o que muda no escopo, na equipe e no modelo de gestão.</p>
+      </div>
+
+      <div class="seg-grid">
+        <div class="seg-tabs" role="tablist" aria-label="Segmentos atendidos">
+          <button class="seg-tab is-on" role="tab" aria-selected="true" data-seg="corp">
+            <span class="n">01</span>
+            <span><span class="t">Corporativo</span><span class="d">Escritórios e prédios comerciais</span></span>
+          </button>
+          <button class="seg-tab" role="tab" aria-selected="false" data-seg="com">
+            <span class="n">02</span>
+            <span><span class="t">Comercial</span><span class="d">Lojas, galerias e shoppings</span></span>
+          </button>
+          <button class="seg-tab" role="tab" aria-selected="false" data-seg="res">
+            <span class="n">03</span>
+            <span><span class="t">Residencial</span><span class="d">Condomínios e áreas comuns</span></span>
+          </button>
+          <button class="seg-tab" role="tab" aria-selected="false" data-seg="ind">
+            <span class="n">04</span>
+            <span><span class="t">Industrial</span><span class="d">Plantas e centros logísticos</span></span>
+          </button>
+        </div>
+
+        <div class="seg-panel">
+          <div class="seg-body">
+            <h3 id="segTitle">Gestão integrada para quem não pode ter o prédio parado.</h3>
+            <p id="segText">Manutenção predial, limpeza, portaria e suporte técnico sob um único contrato — com SLA por área e relatório mensal para o síndico ou facility manager.</p>
+            <ul class="seg-list" id="segList">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Manutenção preventiva com plano anual por equipamento</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Limpeza e conservação com equipe fixa e supervisão</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Portaria 24h e controle de acesso</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Dashboard mensal de custo e performance</li>
+            </ul>
+            <div class="seg-foot">
+              <a class="btn btn-dark" href="#contato">Falar sobre meu prédio</a>
+              <a class="link-arrow" href="#">Ver escopo completo
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="seg-media">
+            <span class="tag" id="segTag">Corporativo</span>
+            <div class="grad"></div>
+            <img class="is-on" data-seg-img="corp" src="assets/case3.png" alt="Prédio corporativo">
+            <img data-seg-img="com" src="assets/case2.png" alt="Centro comercial">
+            <img data-seg-img="res" src="assets/case1.png" alt="Condomínio residencial">
+            <img data-seg-img="ind" src="assets/case4.png" alt="Unidade industrial e hospitalar">
+            <div class="foot"><span id="segRef">Referência: Centro Empresarial Mourisco</span><span>RJ</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="band" id="empresa">
+    <div class="wrap">
+      <div class="stat"><div class="v">250<span>+</span></div><div class="k">Projetos de engenharia entregues</div></div>
+      <div class="stat"><div class="v">10<span> anos</span></div><div class="k">De operação em manutenção e obras</div></div>
+      <div class="stat"><div class="v">24<span>/7</span></div><div class="k">Suporte técnico para contratos ativos</div></div>
+      <div class="stat"><div class="v">1<span> contrato</span></div><div class="k">Para obras, manutenção e facilities</div></div>
+    </div>
+  </section>
+
+  <!-- TECH -->
+  <section class="tech" id="tecnologia">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" style="color:#5FE0CF">Facilities Plus</p>
+        <h2>Operação e dado, na mesma mesa.</h2>
+        <p class="lead">O diferencial não é ter uma plataforma: é o que a operação faz com ela. Cada ordem de serviço, ativo e leitura vira histórico — e o histórico vira decisão de investimento.</p>
+        <ul>
+          <li>
+            <span class="tech-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></span>
+            <span><b>Monitoramento com IoT</b><span>Sensores em ativos críticos antecipam falha antes do chamado.</span></span>
+          </li>
+          <li>
+            <span class="tech-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></span>
+            <span><b>SLA medido, não prometido</b><span>Prazo de atendimento por tipo de chamado, aberto no relatório mensal.</span></span>
+          </li>
+          <li>
+            <span class="tech-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>
+            <span><b>Plano anual por ativo</b><span>Preventiva programada por equipamento, não por urgência.</span></span>
+          </li>
+          <li>
+            <span class="tech-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span><b>ESG com evidência</b><span>Consumo, resíduos e descarte documentados para auditoria.</span></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dash">
+        <div class="dash-top">
+          <div class="t">Painel do contrato · Unidade Barra</div>
+          <div class="live"><span class="pulse" style="margin:0"></span> ao vivo</div>
+        </div>
+        <div class="dash-grid">
+          <div class="card">
+            <div class="lbl">Chamados no prazo (30d)</div>
+            <div class="big">98,7<small>%</small></div>
+            <svg class="spark" viewBox="0 0 240 66" preserveAspectRatio="none" aria-hidden="true">
+              <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#12B3A2" stop-opacity=".35"/><stop offset="100%" stop-color="#12B3A2" stop-opacity="0"/>
+              </linearGradient></defs>
+              <path d="M0 54 L30 48 L60 50 L90 36 L120 40 L150 26 L180 30 L210 16 L240 20 L240 66 L0 66Z" fill="url(#g1)"/>
+              <path d="M0 54 L30 48 L60 50 L90 36 L120 40 L150 26 L180 30 L210 16 L240 20" fill="none" stroke="#12B3A2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="dash-kpis">
+            <div class="kpi"><div class="lbl">Preventivas</div><div class="v">42<i>no mês</i></div></div>
+            <div class="kpi"><div class="lbl">Corretivas</div><div class="v">7<i>−31%</i></div></div>
+            <div class="kpi"><div class="lbl">Equipe fixa</div><div class="v">18<i>pessoas</i></div></div>
+            <div class="kpi"><div class="lbl">Economia</div><div class="v">R$ 21k<i>/mês</i></div></div>
+          </div>
+          <div class="card os-list">
+            <div class="lbl" style="margin-bottom:6px">Ordens de serviço</div>
+            <div class="os-row"><span class="id">#1042</span><span class="nm">Climatização · Torre A / 12º</span><span class="pill run">em curso</span></div>
+            <div class="os-row"><span class="id">#1041</span><span class="nm">Substituição de bomba · Subsolo</span><span class="pill ok">concluída</span></div>
+            <div class="os-row"><span class="id">#1039</span><span class="nm">Inspeção de incêndio · Bloco B</span><span class="pill warn">agendada</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="block cases" id="cases">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Cases</p>
+          <h2>O que já está rodando.</h2>
+        </div>
+        <a class="link-arrow" href="#">Ver todos os cases
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="case-grid">
+        <a class="case" href="#">
+          <div class="ph"><span class="tag">Corporativo</span>
+            <img src="assets/case3.png" alt="Centro Empresarial Mourisco"></div>
+          <div class="bd">
+            <h3>Centro Empresarial Mourisco</h3>
+            <p>Manutenção predial e facilities em operação contínua em centro empresarial de alto padrão.</p>
+            <div class="meta"><span>Facilities · Manutenção</span><b>Contrato ativo</b></div>
+          </div>
+        </a>
+        <a class="case" href="#">
+          <div class="ph"><span class="tag">Saúde</span>
+            <img src="assets/case4.png" alt="Hospital ASSIM Méier"></div>
+          <div class="bd">
+            <h3>Hospital ASSIM · Méier</h3>
+            <p>Suporte técnico e conservação em ambiente crítico, com atendimento fora do horário comercial.</p>
+            <div class="meta"><span>Manutenção · Obras</span><b>Ambiente crítico</b></div>
+          </div>
+        </a>
+        <a class="case" href="#">
+          <div class="ph"><span class="tag">Residencial</span>
+            <img src="assets/case1.png" alt="Residencial Brisas do Outeiro"></div>
+          <div class="bd">
+            <h3>Residencial Brisas do Outeiro</h3>
+            <p>Obras e manutenção das áreas comuns para incorporadora, com entrega por etapas.</p>
+            <div class="meta"><span>Obras · Conservação</span><b>Cyrela</b></div>
+          </div>
+        </a>
+      </div>
+      <p style="font-size:11.5px;color:#93A5A7;margin-top:18px;font-family:var(--mono);letter-spacing:.04em">Mockup conceitual · métricas de painel são ilustrativas.</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="block" id="processo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Como começamos</p>
+          <h2>Do primeiro contato à operação<br>em quatro passos.</h2>
+        </div>
+        <p class="lead" style="max-width:36ch">Sem proposta genérica: o escopo nasce da visita técnica e do histórico real do imóvel.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>Diagnóstico técnico</h3><p>Visita ao imóvel, levantamento de ativos e escopo atual.</p><span class="when">até 48h</span></div>
+        <div class="step"><div class="n">02</div><h3>Plano de serviço</h3><p>Escopo, equipe, cronograma e SLA por área — com preço aberto.</p><span class="when">3 a 7 dias</span></div>
+        <div class="step"><div class="n">03</div><h3>Mobilização</h3><p>Equipe alocada, sistemas configurados e transição sem parada.</p><span class="when">2 semanas</span></div>
+        <div class="step"><div class="n">04</div><h3>Operação com SLA</h3><p>Execução, relatório mensal e revisão de indicadores.</p><span class="when">contínuo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Diagnóstico</p>
+        <h2>Vamos dimensionar<br>sua operação.</h2>
+        <p class="lead" style="margin-top:16px">Preencha os dados básicos do imóvel. Com isso, chegamos à visita já sabendo o que olhar — e você recebe um plano em até 48h úteis.</p>
+
+        <form class="lead-form" onsubmit="event.preventDefault();document.getElementById('ok').classList.add('show');this.querySelector('button[type=submit]').textContent='Solicitação enviada';">
+          <div class="field"><label for="f-nome">Nome</label><input id="f-nome" placeholder="Seu nome" required></div>
+          <div class="field"><label for="f-empresa">Empresa / condomínio</label><input id="f-empresa" placeholder="Razão social" required></div>
+          <div class="field"><label for="f-mail">E-mail corporativo</label><input id="f-mail" type="email" placeholder="nome@empresa.com.br" required></div>
+          <div class="field"><label for="f-tel">WhatsApp</label><input id="f-tel" placeholder="(21) 9 0000-0000" required></div>
+          <div class="field"><label for="f-seg">Segmento</label>
+            <select id="f-seg" required>
+              <option value="">Selecione</option>
+              <option>Corporativo</option><option>Comercial</option>
+              <option>Residencial</option><option>Industrial</option>
+              <option>Saúde / outro</option>
+            </select>
+          </div>
+          <div class="field"><label for="f-area">Área construída</label>
+            <select id="f-area" required>
+              <option value="">Selecione</option>
+              <option>Até 5.000 m²</option><option>5.000 a 20.000 m²</option>
+              <option>20.000 a 50.000 m²</option><option>Acima de 50.000 m²</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>O que precisa hoje? <span>(selecione o que se aplica)</span></label>
+            <div class="scope">
+              <button type="button" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Manutenção predial</button>
+              <button type="button" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Limpeza</button>
+              <button type="button" aria-pressed="true" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Obras</button>
+              <button type="button" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Portaria</button>
+              <button type="button" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Climatização</button>
+              <button type="button" aria-pressed="false" onclick="this.setAttribute('aria-pressed',this.getAttribute('aria-pressed')==='true'?'false':'true')"><span class="plus">+</span> Jardinagem</button>
+            </div>
+          </div>
+          <div class="form-ok" id="ok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Recebido. Nosso time comercial responde em até 1 dia útil.
+          </div>
+          <div class="form-foot">
+            <button class="btn btn-primary" type="submit">Solicitar diagnóstico em 48h
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="form-note">Dados usados apenas para contato comercial, conforme a LGPD. Sem spam.</p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact-card">
+        <h3>Prefere falar agora?</h3>
+        <p class="sub">Segunda a sexta, 8h às 18h.</p>
+        <div class="cc-item">
+          <span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <div><div class="k">Comercial</div><div class="v"><a href="tel:+5521997721041">21 99772-1041</a></div></div>
+        </div>
+        <div class="cc-item">
+          <span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
+          <div><div class="k">E-mail</div><div class="v"><a href="mailto:comercial@megaservicos.com.br">comercial@megaservicos.com.br</a></div></div>
+        </div>
+        <div class="cc-item">
+          <span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><div class="k">Escritório</div><div class="v">Rua Luiz Antônio Campos Mello, 2 — Bloco 2, Sala 311<br>Union Work · Barra Olímpica, Rio de Janeiro</div></div>
+        </div>
+        <a class="btn btn-primary" href="https://wa.link/6ut8x2" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.8.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+          Conversar no WhatsApp
+        </a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <div class="wordmark">MEGA <span>SERVIÇOS</span></div>
+        <p>Obras, manutenção e facilities integrados para operações que não podem parar. Rio de Janeiro · atuação nacional.</p>
+        <div class="socials">
+          <a href="#" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9-1.8 0-2.1 1.4-2.1 2.8V21H9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://wa.link/6ut8x2" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Soluções</h4>
+        <ul>
+          <li><a href="#">Obras</a></li>
+          <li><a href="#">Manutenção</a></li>
+          <li><a href="#">Facilities</a></li>
+          <li><a href="#">Facilities Plus</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Segmentos</h4>
+        <ul>
+          <li><a href="#">Corporativo</a></li>
+          <li><a href="#">Comercial</a></li>
+          <li><a href="#">Residencial</a></li>
+          <li><a href="#">Industrial</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Quem somos</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#">Trabalhe conosco</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Mega Serviços. Todos os direitos reservados.</span>
+      <span>Rio de Janeiro · RJ · atendimento em todo o Brasil</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.link/6ut8x2" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.4 1 2.9.8 3.4.8.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+</a>
+
+<script>
+  // segment switcher
+  const SEG = {
+    corp:{
+      title:"Gestão integrada para quem não pode ter o prédio parado.",
+      text:"Manutenção predial, limpeza, portaria e suporte técnico sob um único contrato — com SLA por área e relatório mensal para o síndico ou facility manager.",
+      items:["Manutenção preventiva com plano anual por equipamento","Limpeza e conservação com equipe fixa e supervisão","Portaria 24h e controle de acesso","Dashboard mensal de custo e performance"],
+      tag:"Corporativo", ref:"Referência: Centro Empresarial Mourisco", cta:"Falar sobre meu prédio"
+    },
+    com:{
+      title:"Sua loja pronta para abrir, todos os dias.",
+      text:"Conservação, higienização e apoio operacional para lojas, galerias e shoppings — com rotina alinhada ao horário de funcionamento e à experiência do cliente.",
+      items:["Higienização em horário fora de operação","Manutenção de balcões, vitrines e instalações","Apoio operacional em picos de movimento","Gestão de resíduos e reciclagem"],
+      tag:"Comercial", ref:"Referência: Lead Americas Business", cta:"Falar sobre meu espaço"
+    },
+    res:{
+      title:"O condomínio em ordem, sem síndico no operacional.",
+      text:"Manutenção, pequenos reparos e conservação das áreas comuns, com relatório acessível à administradora e transparência para a assembleia.",
+      items:["Plano de manutenção por equipamento e área","Pequenos reparos e conservação das áreas comuns","Jardinagem e paisagismo","Relatório mensal e histórico para auditoria"],
+      tag:"Residencial", ref:"Referência: Brisas do Outeiro · Cyrela", cta:"Falar sobre meu condomínio"
+    },
+    ind:{
+      title:"Continuidade operacional em ambiente crítico.",
+      text:"Suporte técnico especializado para plantas industriais e centros logísticos, com foco em disponibilidade de ativos e segurança da operação.",
+      items:["Manutenção mecânica, elétrica e hidráulica","Análise preditiva e monitoramento de ativos","Paradas programadas e obras de melhoria","Laudos, PAME e documentação técnica"],
+      tag:"Industrial", ref:"Referência: ambiente hospitalar e logístico", cta:"Falar sobre minha planta"
+    }
+  };
+
+  const tabs = document.querySelectorAll('.seg-tab');
+  const imgs = document.querySelectorAll('[data-seg-img]');
+
+  function setSeg(k){
+    const d = SEG[k]; if(!d) return;
+    document.getElementById('segTitle').textContent = d.title;
+    document.getElementById('segText').textContent = d.text;
+    document.getElementById('segTag').textContent = d.tag;
+    document.getElementById('segRef').textContent = d.ref;
+    document.querySelector('.seg-foot .btn').textContent = d.cta;
+    document.getElementById('segList').innerHTML = d.items.map(t =>
+      '<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' + t + '</li>'
+    ).join('');
+    imgs.forEach(i => i.classList.toggle('is-on', i.dataset.segImg === k));
+    tabs.forEach(t => {
+      const on = t.dataset.seg === k;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on);
+    });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => setSeg(t.dataset.seg)));
+
+  function toggleMenu(btn){
+    const m = document.getElementById('mnav');
+    const open = m.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open);
+  }
+  document.querySelectorAll('#mnav a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('mnav').classList.remove('is-open');
+    document.querySelector('.burger').setAttribute('aria-expanded','false');
+  }));
+</script>
+</body>
+</html>
